@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
         Debug.Assert(MinMouseInputThreshold > 0.0f);
         Debug.Assert(RotationFactor.magnitude > 0.0f);
         Debug.Assert(MovementFactor.magnitude > 0.0f);
-        
+
         Debug.Assert(m_lookAction != null);
         Debug.Assert(m_moveAction != null);
         Debug.Assert(m_rigidbody != null);
@@ -39,12 +40,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+#if UNITY_EDITOR
+        EditorApplication.pauseStateChanged += HandlePauseChanged;
+#endif
+
+        Cursor.lockState = CursorLockMode.Locked;
+
         m_lookAction.Enable();
         m_moveAction.Enable();
     }
 
     private void OnDisable()
     {
+#if UNITY_EDITOR
+        EditorApplication.pauseStateChanged -= HandlePauseChanged;
+#endif
+        
+        Cursor.lockState = CursorLockMode.None;
+
         m_lookAction.Disable();
         m_moveAction.Disable();
     }
@@ -64,11 +77,18 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Quaternion forwardDirection = Quaternion.Euler(Vector3.up * m_yaw);
-        
+
         Vector2 moveDelta = m_moveAction.ReadValue<Vector2>().normalized;
         Vector3 targetPosition = m_rigidbody.position + forwardDirection * new Vector3(moveDelta.x, 0.0f, moveDelta.y) * (MovementFactor.magnitude * Time.fixedDeltaTime);
 
         m_rigidbody.Move(targetPosition, forwardDirection);
         m_camera.transform.localRotation = Quaternion.Euler(Vector3.right * m_pitch);
     }
+
+#if UNITY_EDITOR
+    private void HandlePauseChanged(PauseState pauseState)
+    {
+        Cursor.lockState = (pauseState == PauseState.Paused) ? CursorLockMode.None : CursorLockMode.Locked;
+    }
+#endif
 }
