@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 #if UNITY_EDITOR
         EditorApplication.pauseStateChanged -= HandlePauseChanged;
 #endif
-        
+
         Cursor.lockState = CursorLockMode.None;
 
         m_lookAction.Disable();
@@ -76,12 +76,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Quaternion forwardDirection = Quaternion.Euler(Vector3.up * m_yaw);
-
+        Quaternion rotationAxis = Quaternion.Euler(Vector3.up * m_yaw);
+        
         Vector2 moveDelta = m_moveAction.ReadValue<Vector2>().normalized;
-        Vector3 targetPosition = m_rigidbody.position + forwardDirection * new Vector3(moveDelta.x, 0.0f, moveDelta.y) * (MovementFactor.magnitude * Time.fixedDeltaTime);
+        Vector3 targetPosition = m_rigidbody.position + rotationAxis * new Vector3(moveDelta.x, 0.0f, moveDelta.y) * (MovementFactor.magnitude * Time.fixedDeltaTime);
 
-        m_rigidbody.Move(targetPosition, forwardDirection);
+        m_rigidbody.Move(targetPosition, rotationAxis);
+        m_rigidbody.linearVelocity = Vector3.zero;
         m_camera.transform.localRotation = Quaternion.Euler(Vector3.right * m_pitch);
     }
 
