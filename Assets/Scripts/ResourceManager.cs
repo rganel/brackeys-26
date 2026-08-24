@@ -1,40 +1,24 @@
 using System;
-using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-[DefaultExecutionOrder(-1000)]
+[DefaultExecutionOrder(-800)]
 public class ResourceManager : MonoBehaviour
 {
-    [SerializeField] private bool Resting;
-    [SerializeField] private float TickRate;
     [SerializeField] private Resource[] Resources;
 
-    public UnityEvent<ResourceType, float> ResourceUpdated;
+    public UnityEvent<EStatType, float> ResourceUpdated;
 
     public static ResourceManager Instance { get; private set; }
-    
-    public enum ResourceType
-    {
-        Tick,
-        Population,
-        Morale,
-        Herd,
-
-        Count
-    };
 
     [Serializable]
     private class Resource
     {
-        public ResourceType Type;
+        public float MinValue = float.MinValue;
+        public float MaxValue = float.MaxValue;
         public float Amount;
         public float TravelDecayRate;
         public float RestRestoreRate;
-        public string DisplayFormat;
-        public TMP_Text DisplayLabel;
     }
 
     private void Awake()
@@ -49,47 +33,36 @@ public class ResourceManager : MonoBehaviour
             Destroy(this);
             return;
         }
-        
+
         Debug.Assert(Resources != null);
-        Debug.Assert(Resources.Length == (int)ResourceType.Count);
-        Debug.Assert(Resources.DistinctBy(resource => resource.Type).Count() == Resources.Length);
-        Debug.Assert(Resources.All(resource => resource.Type != ResourceType.Count));
-
-        foreach (Resource resource in Resources)
-        {
-            resource.DisplayLabel.text = string.Format(resource.DisplayFormat, Mathf.RoundToInt(resource.Amount));
-        }
+        Debug.Assert(Resources.Length == (int)EStatType.META_LastResource - (int)EStatType.META_FirstResource + 1);
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Time.time - Resources[(int)ResourceType.Tick].Amount >= TickRate)
-        {
-            Tick();
-        }
+        TickManager.Instance.TickEvent.AddListener(OnTickEvent);
     }
 
-    private void Tick()
+    private void OnDisable()
     {
-        foreach (Resource resource in Resources)
+        TickManager.Instance.TickEvent.RemoveListener(OnTickEvent);
+    }
+
+    public void AddResource(EStatType statType, float amount)
+    {
+        Debug.Assert((statType >= EStatType.META_FirstResource) && (statType <= EStatType.META_LastResource));
+
+        Resource resource = Resources[(int)statType];
+        resource.Amount = Mathf.Clamp(resource.Amount + amount, resource.MinValue, resource.MaxValue);
+        ResourceUpdated?.Invoke(statType, resource.Amount);
+    }
+
+    private void OnTickEvent(float tick)
+    {
+        for (EStatType statType = EStatType.META_FirstResource; statType <= EStatType.META_LastResource; statType++)
         {
-            if (Resting)
-            {
-                resource.Amount += resource.RestRestoreRate;
-            }
-            else
-            {
-                resource.Amount -= resource.TravelDecayRate;
-            }
-            
-            resource.DisplayLabel.text = string.Format(resource.DisplayFormat, Mathf.RoundToInt(resource.Amount));
-            ResourceUpdated?.Invoke(resource.Type, resource.Amount);
-            
-            // // Special handling to allow mid-tick updates in other systems (i.e. day/ night)
-            // if ((resource.Type == ResourceType.Tick) && (resource.Amount % 1 != 0))
-            // {
-            //     break;
-            // }
+            Resource resource = Resources[(int)statType];
+            AddResource(statType, (GameStateManager.Instance.Traveling ? -resource.TravelDecayRate : resource.RestRestoreRate));
         }
     }
 }
