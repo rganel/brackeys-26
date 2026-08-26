@@ -1,3 +1,4 @@
+using System.Linq;
 using Managers;
 using Scriptable_Objects;
 using TMPro;
@@ -22,7 +23,7 @@ public class ActivityButton : Button
         DisplayLabel.text = ActivityConfig.DisplayName;
         if (DetailsLabel != null)
         {
-            DetailsLabel.text = string.Join<ActivitySO.ResourceChange>("\n", ActivityConfig.ResourceChanges);
+            DetailsLabel.text = string.Join<ActivitySO.ResourceChange>("\n", ActivityConfig.ResourceChanges.OrderBy(activity => activity.ResourceType));
         }
     }
 

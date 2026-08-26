@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.ActivitySO
   DisplayName: Hold Feast
   ResourceChanges:
+  - ResourceType: 0
+    AmountChange: 1
   - ResourceType: 3
     AmountChange: -5
   - ResourceType: 2
