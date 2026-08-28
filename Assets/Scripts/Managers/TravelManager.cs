@@ -11,6 +11,9 @@ namespace Managers
         [SerializeField] private ActivitySO TravelActivity;
         [SerializeField] private float TravelTickInterval;
 
+        [SerializeField] private float BaseMovementSpeed;
+        [SerializeField] private ParallaxEnvironment ParallaxEnvironment;
+
         [SerializeField] private Image TravelBackgroundImage;
         [SerializeField] private Sprite DaytimeSprite;
         [SerializeField] private Sprite NighttimeSprite;
@@ -36,6 +39,14 @@ namespace Managers
             Debug.Assert(TravelBackgroundImage != null);
             Debug.Assert(DaytimeSprite != null);
             Debug.Assert(NighttimeSprite != null);
+        }
+
+        private void Update()
+        {
+            if (m_tickCoroutine != null)
+            {
+                ParallaxEnvironment.ApplyMovement(BaseMovementSpeed * Time.deltaTime);
+            }
         }
 
         public void BeginTravel()
