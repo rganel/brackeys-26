@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Layer 3
+  m_Name: Canyon Layer 2
   m_Shader: {fileID: -6465566751694194690, guid: 070c931c36cfaed43bed6666f03c7641, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Day_Texture:
-        m_Texture: {fileID: 2800000, guid: b3a3c292283789b42aa5ae0edaa168c1, type: 3}
+        m_Texture: {fileID: 2800000, guid: c8fe57ee468d1df42b209b596d323a6d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Night_Texture:
-        m_Texture: {fileID: 2800000, guid: 3d31a9f3321d1554990ea30270a41537, type: 3}
+        m_Texture: {fileID: 2800000, guid: 415f709c362b2cb4bb1ac644946de0bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -108,7 +108,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Interpolation: 0.95530725
+    - _Interpolation: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

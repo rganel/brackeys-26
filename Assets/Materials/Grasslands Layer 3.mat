@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Layer 4
+  m_Name: Grasslands Layer 3
   m_Shader: {fileID: -6465566751694194690, guid: 070c931c36cfaed43bed6666f03c7641, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Day_Texture:
-        m_Texture: {fileID: 2800000, guid: 02849d1bfaa62d74f9bd862c2763bb0d, type: 3}
+        m_Texture: {fileID: 2800000, guid: a5404e57e4207ee409f94a0f9a324cd8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Night_Texture:
-        m_Texture: {fileID: 2800000, guid: c1609c77c3fc8aa4595c583d081cdfa3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8e37eb18bd07bf146b1957227cfe4ae5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -108,7 +108,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Interpolation: 0.95530725
+    - _Interpolation: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

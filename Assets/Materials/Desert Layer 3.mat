@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Layer 1
+  m_Name: Desert Layer 3
   m_Shader: {fileID: -6465566751694194690, guid: 070c931c36cfaed43bed6666f03c7641, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Day_Texture:
-        m_Texture: {fileID: 2800000, guid: 082b99276dd85dc42821a2180aa7cba4, type: 3}
+        m_Texture: {fileID: 2800000, guid: c10b4088f58117d438a28c113d29871b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Night_Texture:
-        m_Texture: {fileID: 2800000, guid: 9c1d59c589928e9429f3478477bd8c50, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8ef9e78e783695543a998b3e43409055, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -108,7 +108,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Interpolation: 0.95530725
+    - _Interpolation: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
