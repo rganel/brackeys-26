@@ -344,7 +344,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 115150491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0cd0ab08269dd44abe27c2e7dd8f02, type: 3}
+  m_Script: {fileID: 11500000, guid: a283707bd75b33b4eba64baae11e6428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnchorToParent
 --- !u!1001 &193714587
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 352933738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5320ffd11371698459cc15a1bcaa259f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a3d3c7313a57f14aa3dc7a353485b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverPopup
   m_Navigation:
@@ -1319,7 +1319,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 352933742}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -2714,18 +2714,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1706757075}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayGameMusic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1424561492}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -3135,7 +3123,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 968938617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5320ffd11371698459cc15a1bcaa259f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a3d3c7313a57f14aa3dc7a353485b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverPopup
   m_Navigation:
@@ -3166,7 +3154,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 968938620}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -3906,7 +3894,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 115150497}
-        m_TargetAssemblyTypeName: AnchorToParent, Assembly-CSharp
+        m_TargetAssemblyTypeName: UI.AnchorToParent, Assembly-CSharp
         m_MethodName: Reparent
         m_Mode: 2
         m_Arguments:
@@ -4175,7 +4163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1140989748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5320ffd11371698459cc15a1bcaa259f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a3d3c7313a57f14aa3dc7a353485b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActivityButton
   m_Navigation:
@@ -5790,7 +5778,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1541656102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5320ffd11371698459cc15a1bcaa259f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a3d3c7313a57f14aa3dc7a353485b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverPopup
   m_Navigation:
@@ -5821,7 +5809,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1541656105}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
