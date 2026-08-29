@@ -20,6 +20,7 @@ namespace Managers
         [SerializeField] private Transform EndDayLightTransform;
         [SerializeField] private Light DirectionalLight;
         [SerializeField] private Material[] EnvironmentMaterials;
+        [SerializeField] private Material ShadowCatcherMaterial;
 
         public static TravelManager Instance { get; private set; }
 
@@ -49,6 +50,7 @@ namespace Managers
             Debug.Assert(EndDayLightTransform != null);
             Debug.Assert(DirectionalLight != null);
             Debug.Assert(EnvironmentMaterials != null);
+            Debug.Assert(ShadowCatcherMaterial != null);
         }
 
 
@@ -58,6 +60,8 @@ namespace Managers
             {
                 material.SetFloat(Shader.PropertyToID("_Interpolation"), 0.0f);
             }
+
+            ShadowCatcherMaterial.SetFloat(Shader.PropertyToID("_ShadowAlphaFactor"), 0.0f);
         }
 
         private void Update()
@@ -84,6 +88,8 @@ namespace Managers
                     // TODO: cache property ID on awake
                     material.SetFloat(Shader.PropertyToID("_Interpolation"), scaledTimeOfDay);
                 }
+
+                ShadowCatcherMaterial.SetFloat(Shader.PropertyToID("_ShadowAlphaFactor"), scaledTimeOfDay);
 
                 ParallaxEnvironment.ApplyMovement(BaseMovementSpeed * Time.deltaTime);
             }
