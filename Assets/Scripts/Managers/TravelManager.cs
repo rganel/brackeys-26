@@ -1,7 +1,6 @@
 using System.Collections;
 using Scriptable_Objects;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Managers
 {
@@ -14,12 +13,18 @@ namespace Managers
         [SerializeField] private float BaseMovementSpeed;
         [SerializeField] private ParallaxEnvironment ParallaxEnvironment;
 
-        [SerializeField] private Image TravelBackgroundImage;
-        [SerializeField] private Sprite DaytimeSprite;
-        [SerializeField] private Sprite NighttimeSprite;
+        [SerializeField] private AnimationCurve DayCycleCurve;
+        [SerializeField] private AnimationCurve LightIntensityCurve;
+        [SerializeField] private Transform BeginDayLightTransform;
+        [SerializeField] private Transform MiddayLightTransform;
+        [SerializeField] private Transform EndDayLightTransform;
+        [SerializeField] private Light DirectionalLight;
+        [SerializeField] private Material[] EnvironmentMaterials;
 
         public static TravelManager Instance { get; private set; }
 
+        private float m_timeOfDay;
+        private float m_timeOfDaySign;
         private Coroutine m_tickCoroutine;
 
         private void Awake()
@@ -35,16 +40,51 @@ namespace Managers
 
             Debug.Assert(TravelActivity != null);
             Debug.Assert(TravelTickInterval > 0.0f);
+            Debug.Assert(BaseMovementSpeed > 0.0f);
+            Debug.Assert(ParallaxEnvironment != null);
+            Debug.Assert(DayCycleCurve != null);
+            Debug.Assert(LightIntensityCurve != null);
+            Debug.Assert(BeginDayLightTransform != null);
+            Debug.Assert(MiddayLightTransform != null);
+            Debug.Assert(EndDayLightTransform != null);
+            Debug.Assert(DirectionalLight != null);
+            Debug.Assert(EnvironmentMaterials != null);
+        }
 
-            Debug.Assert(TravelBackgroundImage != null);
-            Debug.Assert(DaytimeSprite != null);
-            Debug.Assert(NighttimeSprite != null);
+
+        private void OnDestroy()
+        {
+            foreach (Material material in EnvironmentMaterials)
+            {
+                material.SetFloat(Shader.PropertyToID("_Interpolation"), 0.0f);
+            }
         }
 
         private void Update()
         {
             if (m_tickCoroutine != null)
             {
+                m_timeOfDay = Mathf.Clamp(m_timeOfDay + (2.0f / TravelTickInterval) * Time.deltaTime * m_timeOfDaySign, 0.0f, 1.0f);
+                float scaledTimeOfDay = DayCycleCurve.Evaluate(m_timeOfDay);
+
+                if (m_timeOfDaySign > 0.0f)
+                {
+                    DirectionalLight.transform.rotation = Quaternion.Slerp(BeginDayLightTransform.rotation, MiddayLightTransform.rotation, scaledTimeOfDay);
+                }
+                else
+                {
+                    DirectionalLight.transform.rotation = Quaternion.Slerp(EndDayLightTransform.rotation, MiddayLightTransform.rotation, scaledTimeOfDay);
+                }
+
+                DirectionalLight.colorTemperature = Mathf.Lerp(1500, 5500, scaledTimeOfDay);
+                DirectionalLight.intensity = LightIntensityCurve.Evaluate(scaledTimeOfDay);
+
+                foreach (Material material in EnvironmentMaterials)
+                {
+                    // TODO: cache property ID on awake
+                    material.SetFloat(Shader.PropertyToID("_Interpolation"), scaledTimeOfDay);
+                }
+
                 ParallaxEnvironment.ApplyMovement(BaseMovementSpeed * Time.deltaTime);
             }
         }
@@ -72,11 +112,11 @@ namespace Managers
         {
             while (true)
             {
+                m_timeOfDaySign = 1.0f;
                 yield return new WaitForSeconds(TravelTickInterval / 2);
-                TravelBackgroundImage.sprite = NighttimeSprite;
 
+                m_timeOfDaySign = -1.0f;
                 yield return new WaitForSeconds(TravelTickInterval / 2);
-                TravelBackgroundImage.sprite = DaytimeSprite;
 
                 // TODO: confirm activity can be done
                 foreach (ActivitySO.ResourceChange resourceChange in TravelActivity.ResourceChanges)
