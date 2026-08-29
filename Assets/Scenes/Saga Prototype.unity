@@ -934,6 +934,7 @@ Transform:
   m_Children:
   - {fileID: 989816123}
   - {fileID: 1313798518}
+  - {fileID: 1706757071}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &422222726
@@ -946,7 +947,6 @@ GameObject:
   m_Component:
   - component: {fileID: 422222730}
   - component: {fileID: 422222729}
-  - component: {fileID: 422222728}
   - component: {fileID: 422222727}
   m_Layer: 0
   m_Name: Main Camera
@@ -999,14 +999,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &422222728
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 422222726}
-  m_Enabled: 1
 --- !u!20 &422222729
 Camera:
   m_ObjectHideFlags: 0
@@ -1656,6 +1648,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 637878458}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1706757075}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayGameMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2668,6 +2672,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1706757075}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayGameMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   StateExitEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2775,13 +2791,13 @@ MonoBehaviour:
   StateEnterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 1706757075}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayMenuMusic
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3443,30 +3459,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Managers.ResourceManager
   Resources:
-  - Type: 0
+  - <Type>k__BackingField: 0
     MinValue: 1
     MaxValue: 3.4028235e+38
     Amount: 1
     DisplayFormat: '{1} {0:N0}'
     DisplayLabel: {fileID: 1556685728}
-  - Type: 1
+  - <Type>k__BackingField: 1
     MinValue: 0
     MaxValue: 3.4028235e+38
     Amount: 1000
     DisplayFormat: '{1}: {0:N0}'
     DisplayLabel: {fileID: 1297816017}
-  - Type: 2
+  - <Type>k__BackingField: 2
     MinValue: 0
     MaxValue: 100
     Amount: 100
     DisplayFormat: '{1}: {0:N0}'
     DisplayLabel: {fileID: 783424403}
-  - Type: 3
+  - <Type>k__BackingField: 3
     MinValue: 0
     MaxValue: 3.4028235e+38
     Amount: 200
     DisplayFormat: '{1}: {0:N0}'
     DisplayLabel: {fileID: 873322598}
+  ResourceAmountUpdated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1393676205
 GameObject:
   m_ObjectHideFlags: 0
@@ -4689,6 +4708,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690282559}
   m_CullTransparentMesh: 1
+--- !u!1 &1706757070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1706757071}
+  - component: {fileID: 1706757074}
+  - component: {fileID: 1706757073}
+  - component: {fileID: 1706757075}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1706757071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706757070}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 377966272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1706757073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706757070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
+--- !u!114 &1706757074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706757070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioBankLoader
+  LoadEvent: 1
+  UnloadEvent: 2
+  Banks:
+  - Master
+  CollisionTag: 
+  PreloadSamples: 0
+--- !u!114 &1706757075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706757070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb4f47991af18f4186030b0b4ef1456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  MenuMusicEvent:
+    Guid:
+      Data1: -1973144645
+      Data2: 1192126668
+      Data3: 524391300
+      Data4: 1151546379
+    Path: event:/Menu Music
+  GameMusicEvent:
+    Guid:
+      Data1: 793207178
+      Data2: 1083654222
+      Data3: -1448788335
+      Data4: 1201879545
+    Path: event:/Game Music
+  MoraleParameter: Health
 --- !u!1001 &1731362181
 PrefabInstance:
   m_ObjectHideFlags: 0

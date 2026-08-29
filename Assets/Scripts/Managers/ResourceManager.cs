@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Managers
 {
@@ -10,12 +12,14 @@ namespace Managers
     {
         [SerializeField] private Resource[] Resources = Enum.GetValues(typeof(EResourceType)).Cast<EResourceType>().Select(statType => new Resource(statType)).ToArray();
 
+        public UnityEvent<EResourceType, float> ResourceAmountUpdated;
+
         public static ResourceManager Instance { get; private set; }
 
         [Serializable]
         private class Resource
         {
-            [SerializeField] private EResourceType Type;
+            [field: SerializeField] public EResourceType Type { get; private set; }
             public float MinValue = float.MinValue;
             public float MaxValue = float.MaxValue;
 
@@ -44,10 +48,14 @@ namespace Managers
             }
 
             Instance = this;
+        }
 
+        private void OnEnable()
+        {
             foreach (Resource resource in Resources)
             {
                 resource.UpdateLabel();
+                ResourceAmountUpdated?.Invoke(resource.Type, resource.Amount);
             }
         }
 
@@ -56,6 +64,8 @@ namespace Managers
             Resource resource = Resources[(int)resourceType];
             resource.Amount = Mathf.Clamp(resource.Amount + amount, resource.MinValue, resource.MaxValue);
             resource.UpdateLabel();
+
+            ResourceAmountUpdated?.Invoke(resourceType, amount);
         }
     }
 }
