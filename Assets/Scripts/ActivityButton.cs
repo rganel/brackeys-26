@@ -8,10 +8,10 @@ using UnityEngine.UI;
 
 public class ActivityButton : Button
 {
-    [SerializeField] private ActivitySO ActivityConfig;
-    [SerializeField] private TMP_Text DisplayLabel;
-    [SerializeField] private RectTransform DetailsParent;
-    [SerializeField] private TMP_Text DetailsLabel;
+    [SerializeField] protected ActivitySO ActivityConfig;
+    [SerializeField] protected TMP_Text DisplayLabel;
+    [SerializeField] protected RectTransform DetailsParent;
+    [SerializeField] protected TMP_Text DetailsLabel;
 
     protected override void Awake()
     {
@@ -23,7 +23,7 @@ public class ActivityButton : Button
         DisplayLabel.text = ActivityConfig.DisplayName;
         if (DetailsLabel != null)
         {
-            DetailsLabel.text = string.Join<ActivitySO.ResourceChange>("\n", ActivityConfig.ResourceChanges.OrderBy(activity => activity.ResourceType));
+            DetailsLabel.text = string.Join("\n", ActivityConfig.ResourceChanges.OrderBy(activity => activity.ResourceType));
         }
     }
 
