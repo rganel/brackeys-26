@@ -1,25 +1,34 @@
+using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Events;
+using Debug = UnityEngine.Debug;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Managers
 {
+    [DefaultExecutionOrder(-700)]
     public class AudioManager : MonoBehaviour
     {
-        [SerializeField] private EventReference MenuMusicEvent;
-        [SerializeField] private EventReference GameMusicEvent;
+        [SerializeField] [ParamRef] private string MoraleParameter;
 
-        [SerializeField][ParamRef] private string MoraleParameter;
+        public static AudioManager Instance { get; private set; }
 
         private EventInstance m_eventInstance;
         private PARAMETER_DESCRIPTION m_moraleParameter;
 
         private void Awake()
         {
-            Debug.Assert(!MenuMusicEvent.IsNull);
-            Debug.Assert(!GameMusicEvent.IsNull);
-        
+            Debug.Assert(Instance == null);
+            if (Instance != null)
+            {
+                Destroy(this);
+                return;
+            }
+
+            Instance = this;
+
             RuntimeManager.StudioSystem.getParameterDescriptionByName(MoraleParameter, out m_moraleParameter);
             Debug.Assert(m_moraleParameter.name == MoraleParameter);
         }
@@ -33,52 +42,72 @@ namespace Managers
         {
             ResourceManager.Instance.ResourceAmountUpdated.RemoveListener(HandleResourceUpdated);
         }
-    
+
         private void OnDestroy()
         {
+            if (!m_eventInstance.isValid())
+            {
+                return;
+            }
+
             m_eventInstance.stop(STOP_MODE.IMMEDIATE);
             m_eventInstance.release();
         }
 
-        public void PlayMenuMusic()
+        public void PlayOneShot(EventReference eventReference)
         {
-            Play(MenuMusicEvent);
+            RuntimeManager.PlayOneShot(eventReference);
         }
-    
-        public void PlayGameMusic()
-        {
-            Play(GameMusicEvent);
-        }
-    
-        private void Play(EventReference eventReference)
+
+        public void PlayUntilReplaced(EventReference eventReference)
         {
             if (IsInstanceBoundTo(eventReference))
             {
                 // Already playing this event
                 return;
             }
-        
-            m_eventInstance.stop(STOP_MODE.ALLOWFADEOUT);
-            m_eventInstance.release();
-        
+
+            if (m_eventInstance.isValid())
+            {
+                m_eventInstance.stop(STOP_MODE.ALLOWFADEOUT);
+                m_eventInstance.release();
+            }
+
             m_eventInstance = RuntimeManager.CreateInstance(eventReference);
             m_eventInstance.start();
         }
-    
+
+        public UnityAction PlayUntilStopped(EventReference eventReference)
+        {
+            EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
+            eventInstance.start();
+
+            return () =>
+            {
+                eventInstance.stop(STOP_MODE.ALLOWFADEOUT);
+                eventInstance.release();
+            };
+        }
+
         private void HandleResourceUpdated(EResourceType resourceType, float amount)
         {
             if (resourceType != EResourceType.Morale)
             {
                 return;
             }
-        
+
             RuntimeManager.StudioSystem.setParameterByID(m_moraleParameter.id, amount);
         }
 
         private bool IsInstanceBoundTo(EventReference eventReference)
         {
+            if (!m_eventInstance.isValid())
+            {
+                return false;
+            }
+
             m_eventInstance.getDescription(out EventDescription eventInstanceDescription);
-            eventInstanceDescription.getID(out FMOD.GUID eventInstanceGuid);
+            eventInstanceDescription.getID(out GUID eventInstanceGuid);
 
             return (eventReference.Guid == eventInstanceGuid);
         }

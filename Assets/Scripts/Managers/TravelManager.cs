@@ -56,10 +56,10 @@ namespace Managers
             Debug.Assert(DirectionalLight != null);
             Debug.Assert(EnvironmentMaterials != null);
             Debug.Assert(ShadowCatcherMaterial != null);
-            
+
             m_interpolateParamId = Shader.PropertyToID("_Interpolation");
             Debug.Assert(m_interpolateParamId != 0);
-            
+
             m_shadowFactorParamId = Shader.PropertyToID("_ShadowAlphaFactor");
             Debug.Assert(m_shadowFactorParamId != 0);
 
@@ -103,7 +103,7 @@ namespace Managers
                 ShadowCatcherMaterial.SetFloat(m_shadowFactorParamId, scaledTimeOfDay);
 
                 ParallaxEnvironment.ApplyMovement(BaseMovementSpeed * Time.deltaTime);
-                
+
                 TryNextLevel();
             }
         }
@@ -114,7 +114,7 @@ namespace Managers
             {
                 return;
             }
-            
+
             ParallaxEnvironment.NextLevel();
             m_thisLevelTravelDaysRemaining = TravelDaysPerMap;
         }

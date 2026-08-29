@@ -1466,6 +1466,16 @@ MonoBehaviour:
   StateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  AmbientSounds: []
+  BackgroundMusicEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  StateEnterOneShots: []
+  StateExitOneShots: []
 --- !u!114 &377086086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2743,6 +2753,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  AmbientSounds: []
+  BackgroundMusicEvent:
+    Guid:
+      Data1: 793207178
+      Data2: 1083654222
+      Data3: -1448788335
+      Data4: 1201879545
+    Path: event:/Game Music
+  StateEnterOneShots:
+  - Guid:
+      Data1: 1800487150
+      Data2: 1236515881
+      Data3: 1221376957
+      Data4: 1034382839
+    Path: event:/SFX/Setting_Camp
+  StateExitOneShots:
+  - Guid:
+      Data1: 2141830363
+      Data2: 1099739905
+      Data3: -882629241
+      Data4: 1438652490
+    Path: event:/SFX/Packing_UP
 --- !u!1 &873322596
 GameObject:
   m_ObjectHideFlags: 0
@@ -3885,18 +3917,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1706757075}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayGameMusic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 649556479}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -3936,6 +3956,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  AmbientSounds:
+  - Guid:
+      Data1: 299175945
+      Data2: 1083425178
+      Data3: 176646840
+      Data4: -683598084
+    Path: event:/SFX/Footsteps_Char
+  - Guid:
+      Data1: -679436228
+      Data2: 1219872689
+      Data3: 463610288
+      Data4: -898289389
+    Path: event:/SFX/Wind
+  BackgroundMusicEvent:
+    Guid:
+      Data1: 793207178
+      Data2: 1083654222
+      Data3: -1448788335
+      Data4: 1201879545
+    Path: event:/Game Music
+  StateEnterOneShots: []
+  StateExitOneShots: []
 --- !u!1 &1134825761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,22 +4069,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameStatePanel
   StateEnterEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1706757075}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayMenuMusic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   StateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  AmbientSounds: []
+  BackgroundMusicEvent:
+    Guid:
+      Data1: -1973144645
+      Data2: 1192126668
+      Data3: 524391300
+      Data4: 1151546379
+    Path: event:/Menu Music
+  StateEnterOneShots: []
+  StateExitOneShots:
+  - Guid:
+      Data1: -1518979060
+      Data2: 1335035297
+      Data3: -1597722727
+      Data4: 1366287413
+    Path: event:/UI/UI_Bells_02
 --- !u!1 &1140989748
 GameObject:
   m_ObjectHideFlags: 0
@@ -7024,20 +7070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb4f47991af18f4186030b0b4ef1456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  MenuMusicEvent:
-    Guid:
-      Data1: -1973144645
-      Data2: 1192126668
-      Data3: 524391300
-      Data4: 1151546379
-    Path: event:/Menu Music
-  GameMusicEvent:
-    Guid:
-      Data1: 793207178
-      Data2: 1083654222
-      Data3: -1448788335
-      Data4: 1201879545
-    Path: event:/Game Music
   MoraleParameter: Health
 --- !u!1001 &1708183532
 PrefabInstance:
