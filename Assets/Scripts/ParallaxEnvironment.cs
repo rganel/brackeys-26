@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class ParallaxEnvironment : MonoBehaviour
 {
     [SerializeField] private Layer[] Layers;
-
+    
+    private int m_level;
+    
     [Serializable]
     private class Layer
     {
@@ -36,21 +38,17 @@ public class ParallaxEnvironment : MonoBehaviour
         Debug.Assert(Layers != null);
     }
 
-    [ContextMenu("SetLevel1")]
-    public void SetLevel1()
+    public void NextLevel()
     {
-        SetLevel(1);
-    }
-    
-    [ContextMenu("SetLevel2")]
-    public void SetLevel2()
-    {
-        SetLevel(2);
-    }
-
-    public void SetLevel(int level)
-    {
-        Layers.ToList().ForEach(layer => layer.SetLevel(level));
+        if (m_level == Layers[0].LevelMaterials.Length - 1)
+        {
+            // Max level already
+            Debug.Log("Need to implement win condition, but hey you did it!");
+            return;
+        }
+        
+        m_level++;
+        Layers.ToList().ForEach(layer => layer.SetLevel(m_level));
     }
 
     public void ApplyMovement(float baseMovement)

@@ -2155,6 +2155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TickManager
   TravelActivity: {fileID: 11400000, guid: 82c4329f741e9e0438063345fae46868, type: 2}
   TravelTickInterval: 10
+  TravelDaysPerMap: 6
   BaseMovementSpeed: 8
   ParallaxEnvironment: {fileID: 1552504033}
   DayCycleCurve:

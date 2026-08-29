@@ -10,6 +10,8 @@ namespace Managers
         [SerializeField] private ActivitySO TravelActivity;
         [SerializeField] private float TravelTickInterval;
 
+        [SerializeField] private int TravelDaysPerMap;
+
         [SerializeField] private float BaseMovementSpeed;
         [SerializeField] private ParallaxEnvironment ParallaxEnvironment;
 
@@ -26,6 +28,9 @@ namespace Managers
 
         private float m_timeOfDay;
         private float m_timeOfDaySign;
+        private int m_thisLevelTravelDaysRemaining;
+        private int m_interpolateParamId;
+        private int m_shadowFactorParamId;
         private Coroutine m_tickCoroutine;
 
         private void Awake()
@@ -51,17 +56,24 @@ namespace Managers
             Debug.Assert(DirectionalLight != null);
             Debug.Assert(EnvironmentMaterials != null);
             Debug.Assert(ShadowCatcherMaterial != null);
-        }
+            
+            m_interpolateParamId = Shader.PropertyToID("_Interpolation");
+            Debug.Assert(m_interpolateParamId != 0);
+            
+            m_shadowFactorParamId = Shader.PropertyToID("_ShadowAlphaFactor");
+            Debug.Assert(m_shadowFactorParamId != 0);
 
+            m_thisLevelTravelDaysRemaining = TravelDaysPerMap;
+        }
 
         private void OnDestroy()
         {
             foreach (Material material in EnvironmentMaterials)
             {
-                material.SetFloat(Shader.PropertyToID("_Interpolation"), 0.0f);
+                material.SetFloat(m_interpolateParamId, 0.0f);
             }
 
-            ShadowCatcherMaterial.SetFloat(Shader.PropertyToID("_ShadowAlphaFactor"), 0.0f);
+            ShadowCatcherMaterial.SetFloat(m_shadowFactorParamId, 0.0f);
         }
 
         private void Update()
@@ -85,14 +97,26 @@ namespace Managers
 
                 foreach (Material material in EnvironmentMaterials)
                 {
-                    // TODO: cache property ID on awake
-                    material.SetFloat(Shader.PropertyToID("_Interpolation"), scaledTimeOfDay);
+                    material.SetFloat(m_interpolateParamId, scaledTimeOfDay);
                 }
 
-                ShadowCatcherMaterial.SetFloat(Shader.PropertyToID("_ShadowAlphaFactor"), scaledTimeOfDay);
+                ShadowCatcherMaterial.SetFloat(m_shadowFactorParamId, scaledTimeOfDay);
 
                 ParallaxEnvironment.ApplyMovement(BaseMovementSpeed * Time.deltaTime);
+                
+                TryNextLevel();
             }
+        }
+
+        private void TryNextLevel()
+        {
+            if (m_thisLevelTravelDaysRemaining > 0)
+            {
+                return;
+            }
+            
+            ParallaxEnvironment.NextLevel();
+            m_thisLevelTravelDaysRemaining = TravelDaysPerMap;
         }
 
         public void BeginTravel()
@@ -128,6 +152,11 @@ namespace Managers
                 foreach (ActivitySO.ResourceChange resourceChange in TravelActivity.ResourceChanges)
                 {
                     ResourceManager.Instance.AddResource(resourceChange.ResourceType, resourceChange.AmountChange);
+
+                    if (resourceChange.ResourceType == EResourceType.Day)
+                    {
+                        m_thisLevelTravelDaysRemaining -= Mathf.FloorToInt(resourceChange.AmountChange);
+                    }
                 }
             }
         }
