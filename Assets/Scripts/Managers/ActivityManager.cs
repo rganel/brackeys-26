@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Scriptable_Objects;
 using UnityEngine;
 
@@ -51,6 +53,12 @@ namespace Managers
             }
 
             return true;
+        }
+
+        public Dictionary<EResourceType, float> GetChangeAmounts(ActivitySO activityDefinition)
+        {
+            return activityDefinition.ResourceChanges.ToDictionary(resourceChange => resourceChange.ResourceType,
+                                                                   resourceChange => GetChangeAmount(activityDefinition, resourceChange.ResourceType, out bool isRequiredCost));
         }
 
         public float GetChangeAmount(ActivitySO activityDefinition, EResourceType resourceType, out bool isRequiredCost)

@@ -25,10 +25,15 @@ namespace UI
             DisplayLabel.text = ActivityConfig.DisplayName;
             if (DetailsLabel != null)
             {
-                DetailsLabel.text = string.Join("\n", ActivityConfig.ResourceChanges.OrderBy(activity => activity.ResourceType));
+                DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).OrderBy(kvp => kvp.Key).Select(kvp => Format(kvp.Key, kvp.Value)));
             }
 
             ResourceManager.Instance?.ResourceAmountUpdated.AddListener(HandleResourceChange);
+        }
+        
+        private string Format(EResourceType resourceType, float amount)
+        {
+            return $"{((amount >= 0) ? "+" : string.Empty)}{amount} {resourceType}";
         }
 
         protected override void OnDisable()
