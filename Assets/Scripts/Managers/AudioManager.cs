@@ -71,12 +71,12 @@ namespace Managers
 
             if (m_eventInstance.isValid())
             {
-                Debug.LogWarning("Stop old music");
+                // Debug.LogWarning("Stop old music");
                 m_eventInstance.stop(STOP_MODE.ALLOWFADEOUT);
                 m_eventInstance.release();
             }
 
-            Debug.LogWarning("Start new music");
+            // Debug.LogWarning("Start new music");
             m_eventInstance = RuntimeManager.CreateInstance(eventReference);
             m_eventInstance.start();
         }
@@ -110,7 +110,7 @@ namespace Managers
                 return;
             }
 
-            Debug.Log("audio set health to " + amount);
+            // Debug.Log("audio set health to " + amount);
 
             RuntimeManager.StudioSystem.setParameterByID(m_moraleParameter.id, amount);
         }

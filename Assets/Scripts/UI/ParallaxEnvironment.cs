@@ -2,15 +2,16 @@ using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using EventManager = Managers.EventManager;
 
 namespace UI
 {
     public class ParallaxEnvironment : MonoBehaviour
     {
         [SerializeField] private Layer[] Layers;
-    
+
         private int m_level;
-    
+
         [Serializable]
         private class Layer
         {
@@ -40,17 +41,17 @@ namespace UI
             Debug.Assert(Layers != null);
         }
 
-        public void NextLevel()
+        public bool NextLevel()
         {
             if (m_level == Layers[0].LevelMaterials.Length - 1)
             {
                 // Max level already
-                Debug.Log("Need to implement win condition, but hey you did it!");
-                return;
+                return false;
             }
-        
+
             m_level++;
             Layers.ToList().ForEach(layer => layer.SetLevel(m_level));
+            return true;
         }
 
         public void ApplyMovement(float baseMovement)
@@ -61,25 +62,32 @@ namespace UI
                 {
                     continue;
                 }
-            
+
                 Vector3 translation = Vector3.right * (baseMovement * layer.RelativeScrollSpeed);
-                TranslateAndWrap(layer.FirstImage, translation);
+                TranslateAndWrap(layer.FirstImage, translation, out bool wrapped);
 
                 if (layer.SecondImage != null)
                 {
-                    TranslateAndWrap(layer.SecondImage, translation);
+                    TranslateAndWrap(layer.SecondImage, translation, out wrapped);
+
+                    if (wrapped)
+                    {
+                        EventManager.Instance.SpawnEvents();
+                    }
                 }
             }
         }
 
-        private void TranslateAndWrap(Image image, Vector3 translation)
+        private void TranslateAndWrap(Image image, Vector3 translation, out bool wrapped)
         {
+            wrapped = false;
             image.transform.Translate(translation, Space.Self);
 
             float screenWidth = image.rectTransform.rect.width;
             if (image.rectTransform.localPosition.x > screenWidth)
             {
                 image.transform.localPosition = new Vector3(-screenWidth, 0.0f, 0.0f);
+                wrapped = true;
             }
         }
     }

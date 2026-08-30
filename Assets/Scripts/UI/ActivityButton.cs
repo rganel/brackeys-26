@@ -67,7 +67,7 @@ namespace UI
         {
             if (ActivityManager.Instance != null)
             {
-                interactable &= ActivityManager.Instance.CanPerform(ActivityConfig);
+                interactable = ActivityManager.Instance.CanPerform(ActivityConfig);
             }
 
             base.OnPointerExit(eventData);

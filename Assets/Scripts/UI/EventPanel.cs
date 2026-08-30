@@ -1,3 +1,4 @@
+using System.Linq;
 using Scriptable_Objects;
 using TMPro;
 using UnityEngine;
@@ -33,8 +34,13 @@ namespace UI
             EventImage.sprite = eventDefinition.HoverSprite;
             DescriptionLabel.text = eventDefinition.Description;
 
-            TrustButton.SetActivity(eventDefinition.TrustActivity);
-            RefuseButton.SetActivity(eventDefinition.RejectActivity);
+            ActivitySO trustActivity = Instantiate(eventDefinition.TrustActivity);
+            trustActivity.ResourceChanges.ToList().ForEach(resourceChange => resourceChange.BaseAmountChange += Random.Range(-1.5f, 1.5f));
+            ActivitySO rejectActivity = Instantiate(eventDefinition.RejectActivity);
+            rejectActivity.ResourceChanges.ToList().ForEach(resourceChange => resourceChange.BaseAmountChange += Random.Range(-1.5f, 1.5f));
+            
+            TrustButton.SetActivity(trustActivity);
+            RefuseButton.SetActivity(rejectActivity);
             
             m_eventDefinition = eventDefinition;
         }

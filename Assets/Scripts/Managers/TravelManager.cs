@@ -29,6 +29,7 @@ namespace Managers
         public static TravelManager Instance { get; private set; }
 
         public UnityEvent NextLevelEvent;
+        public UnityEvent ReachedTowerEvent;
 
         private float m_timeOfDay;
         private float m_timeOfDaySign;
@@ -119,7 +120,12 @@ namespace Managers
                 return;
             }
 
-            ParallaxEnvironment.NextLevel();
+            if (!ParallaxEnvironment.NextLevel())
+            {
+                ReachedTowerEvent?.Invoke();
+                return;
+            }
+            
             m_thisLevelTravelDaysRemaining = TravelDaysPerMap;
             NextLevelEvent?.Invoke();
         }

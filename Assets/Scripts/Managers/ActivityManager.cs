@@ -98,7 +98,7 @@ namespace Managers
 
             // Debug.Log($"{activityDefinition.name}: {resourceType} total cost is {change} ({(isRequiredCost ? "required" : "not required")})");
 
-            return Mathf.RoundToInt(change * 100) / 100.0f;
+            return Mathf.RoundToInt(change * 10) / 10.0f;
         }
 
         private float GetResourceMultiplier(ActivitySO.ResourceDependency resourceDependency)

@@ -5,17 +5,29 @@ using UnityEngine;
 
 namespace Managers
 {
+    [DefaultExecutionOrder(-400)]
     public class EventManager : MonoBehaviour
     {
-        [SerializeField] private int EventsPerMap;
+        [SerializeField] private int EventsPerCycle;
         [SerializeField] private EventPanel EventPanel;
         [SerializeField] private EventButton[] EventPrefabs;
         [SerializeField] private RectTransform[] EventAnchors;
+
+        public static EventManager Instance { get; private set; }
 
         private EventButton[] m_spawnedEvents;
 
         private void Awake()
         {
+            Debug.Assert(Instance == null);
+            if (Instance != null)
+            {
+                Destroy(this);
+                return;
+            }
+
+            Instance = this;
+
             Debug.Assert(EventPanel != null);
             Debug.Assert(EventPrefabs != null);
             Debug.Assert(EventPrefabs.Length > 0);
@@ -40,7 +52,7 @@ namespace Managers
             {
                 return;
             }
-            
+
             SpawnEvents();
         }
 
@@ -65,29 +77,36 @@ namespace Managers
                 }
             }
         }
-        
-        private void SpawnEvents()
+
+        public void SpawnEvents()
         {
             if (m_spawnedEvents != null)
             {
                 foreach (EventButton eventButton in m_spawnedEvents)
                 {
-                    Destroy(eventButton.gameObject);
+                    if (eventButton != null)
+                    {
+                        Destroy(eventButton.gameObject);
+                    }
                 }
             }
 
-            m_spawnedEvents = new EventButton[EventsPerMap];
-            
-            List<RectTransform> unusedAnchors = EventAnchors.ToList();
-            for (int i = 0; i < EventsPerMap; ++i)
+            m_spawnedEvents = new EventButton[EventsPerCycle];
+
+            Dictionary<EntityId, List<RectTransform>> eventAnchorsByParent = EventAnchors.GroupBy(eventAnchor => eventAnchor.parent.GetEntityId()).ToDictionary(kvp => kvp.Key, kvp => kvp.ToList());
+            int eventsPerGroup = (EventsPerCycle / eventAnchorsByParent.Count);
+            foreach (List<RectTransform> unusedAnchors in eventAnchorsByParent.Select(kvp => kvp.Value))
             {
-                int anchorIndex = Random.Range(0, unusedAnchors.Count);
-                RectTransform anchor = unusedAnchors[anchorIndex];
-                unusedAnchors.RemoveAt(anchorIndex);
-                
-                int buttonIndex = Random.Range(0, EventPrefabs.Length);
-                m_spawnedEvents[i] = Instantiate(EventPrefabs[buttonIndex], anchor, false);
-                m_spawnedEvents[i].EventPanel = EventPanel;
+                for (int i = 0; i < eventsPerGroup; ++i)
+                {
+                    int anchorIndex = Random.Range(0, unusedAnchors.Count);
+                    RectTransform anchor = unusedAnchors[anchorIndex];
+                    unusedAnchors.RemoveAt(anchorIndex);
+
+                    int buttonIndex = Random.Range(0, EventPrefabs.Length);
+                    m_spawnedEvents[i] = Instantiate(EventPrefabs[buttonIndex], anchor, false);
+                    m_spawnedEvents[i].EventPanel = EventPanel;
+                }
             }
         }
     }
