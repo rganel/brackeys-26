@@ -2,6 +2,7 @@ using System.Collections;
 using Scriptable_Objects;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Managers
 {
@@ -26,6 +27,8 @@ namespace Managers
         [SerializeField] private Material ShadowCatcherMaterial;
 
         public static TravelManager Instance { get; private set; }
+
+        public UnityEvent NextLevelEvent;
 
         private float m_timeOfDay;
         private float m_timeOfDaySign;
@@ -118,6 +121,7 @@ namespace Managers
 
             ParallaxEnvironment.NextLevel();
             m_thisLevelTravelDaysRemaining = TravelDaysPerMap;
+            NextLevelEvent?.Invoke();
         }
 
         public void BeginTravel()

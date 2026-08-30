@@ -19,21 +19,24 @@ namespace UI
         {
             base.OnEnable();
 
-            Debug.Assert(ActivityConfig != null);
+            ResourceManager.Instance?.ResourceAmountUpdated.AddListener(HandleResourceChange);
+
             Debug.Assert(DisplayLabel != null);
 
-            DisplayLabel.text = ActivityConfig.DisplayName;
-            if (DetailsLabel != null)
+            if (ActivityConfig == null)
             {
-                DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).OrderBy(kvp => kvp.Key).Select(kvp => Format(kvp.Key, kvp.Value)));
+                return;
             }
 
-            ResourceManager.Instance?.ResourceAmountUpdated.AddListener(HandleResourceChange);
-        }
-        
-        private string Format(EResourceType resourceType, float amount)
-        {
-            return $"{((amount >= 0) ? "+" : string.Empty)}{amount} {resourceType}";
+            DisplayLabel.text = ActivityConfig.DisplayName;
+
+            if (ActivityManager.Instance != null)
+            {
+                if (DetailsLabel != null)
+                {
+                    DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).OrderBy(kvp => kvp.Key).Select(kvp => Format(kvp.Key, kvp.Value)));
+                }
+            }
         }
 
         protected override void OnDisable()
@@ -87,9 +90,24 @@ namespace UI
             ActivityManager.Instance.ApplyResourceChanges(ActivityConfig);
         }
 
+        public void SetActivity(ActivitySO activityDefinition)
+        {
+            ActivityConfig = activityDefinition;
+            DisplayLabel.text = ActivityConfig.DisplayName;
+            if (DetailsLabel != null)
+            {
+                DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).OrderBy(kvp => kvp.Key).Select(kvp => Format(kvp.Key, kvp.Value)));
+            }
+        }
+
         private void HandleResourceChange(EResourceType resourceType, float amount)
         {
             interactable &= ActivityManager.Instance.CanPerform(ActivityConfig);
+        }
+
+        private string Format(EResourceType resourceType, float amount)
+        {
+            return $"{((amount >= 0) ? "+" : string.Empty)}{amount} {resourceType}";
         }
     }
 }

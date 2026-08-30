@@ -1,3 +1,4 @@
+using Scriptable_Objects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,53 +7,59 @@ namespace UI
 {
     public class EventPanel : MonoBehaviour
     {
+        [SerializeField] private Image EventImage;
         [SerializeField] private TMP_Text DescriptionLabel;
-        [SerializeField] private TMP_Text ResultLabel;
-        [SerializeField] private Button TrustButton;
-        [SerializeField] private Button RefuseButton;
+        [SerializeField] private TMP_Text TrustResultLabel;
+        [SerializeField] private TMP_Text RefuseResultLabel;
+        [SerializeField] private ActivityButton TrustButton;
+        [SerializeField] private ActivityButton RefuseButton;
         [SerializeField] private Button ContinueButton;
 
-        private string m_trustText;
-        private string m_refuseText;
-
-        private void OnEnable()
+        private EventSO m_eventDefinition;
+        
+        public void SetEvent(EventSO eventDefinition)
         {
-            // TODO: temp dummy data
-            SetEvent("The wildlife and flora here are strange but plentiful.", "More hands make for a bountiful harvest. Your group has scavenged some fruits, nuts, and what looks like rabbits.",
-                "You've never seen such plants and animals before. Who knows what they could do to your group?");
-        }
-
-        public void SetEvent(string description, string trustText, string refuseText)
-        {
+            gameObject.SetActive(true);
+            
             TrustButton.gameObject.SetActive(true);
             RefuseButton.gameObject.SetActive(true);
             ContinueButton.gameObject.SetActive(false);
-            ResultLabel.gameObject.SetActive(false);
+            TrustResultLabel.gameObject.SetActive(false);
+            RefuseResultLabel.gameObject.SetActive(false);
 
-            DescriptionLabel.text = description;
+            TrustButton.interactable = true;
+            RefuseButton.interactable = true;
+            
+            EventImage.sprite = eventDefinition.HoverSprite;
+            DescriptionLabel.text = eventDefinition.Description;
 
-            m_trustText = trustText;
-            m_refuseText = refuseText;
+            TrustButton.SetActivity(eventDefinition.TrustActivity);
+            RefuseButton.SetActivity(eventDefinition.RejectActivity);
+            
+            m_eventDefinition = eventDefinition;
+        }
+
+        private void Progress()
+        {
+            TrustButton.gameObject.SetActive(false);
+            RefuseButton.gameObject.SetActive(false);
+            ContinueButton.gameObject.SetActive(true);
         }
 
         public void OnTrust()
         {
-            TrustButton.gameObject.SetActive(false);
-            RefuseButton.gameObject.SetActive(false);
-            ContinueButton.gameObject.SetActive(true);
-            ResultLabel.gameObject.SetActive(true);
+            Progress();
 
-            DescriptionLabel.text = m_trustText;
+            DescriptionLabel.text = m_eventDefinition.TrustDescription;
+            TrustResultLabel.gameObject.SetActive(true);
         }
 
         public void OnRefuse()
         {
-            TrustButton.gameObject.SetActive(false);
-            RefuseButton.gameObject.SetActive(false);
-            ContinueButton.gameObject.SetActive(true);
-            ResultLabel.gameObject.SetActive(true);
+            Progress();
 
-            DescriptionLabel.text = m_refuseText;
+            DescriptionLabel.text = m_eventDefinition.RejectDescription;
+            RefuseResultLabel.gameObject.SetActive(true);
         }
     }
 }
