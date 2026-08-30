@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3aba85a1a089894fa361f3e9adeb7a2, type: 3}
+  m_Name: Creature Event (opt 2)
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.EventSO
+  Description: "Something monstrous has been following your caravan\u2026"
+  DefaultSprite: {fileID: 21300000, guid: 16eaed763a1ca3b44979c0856699418a, type: 3}
+  HoverSprite: {fileID: 21300000, guid: c426c5bd1dc249a46b63c4ab6b384f34, type: 3}
+  TrustDescription: 'The beast does not reason with you and tears through your caravan.
+    You lost people and supplies in your hurry to escape. '
+  RejectDescription: You toss your food to distract the beast as your caravan gets
+    away. At least it's not following you anymore.
+  TrustActivity: {fileID: 11400000, guid: 678b6b68a749be2439a1100ae35de8b4, type: 2}
+  RejectActivity: {fileID: 11400000, guid: 8d23ab6e9490a78419e115271ee727b9, type: 2}

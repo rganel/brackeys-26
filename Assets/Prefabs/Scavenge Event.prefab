@@ -110,7 +110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Scavenge
+  m_text: Investigate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -220,7 +220,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7701264022396553856
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -304,5 +304,5 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   DetailsParent: {fileID: 1831766334244666494}
-  EventDefinition: {fileID: 11400000, guid: d3d4de0a7f2b82e42a495a2fc6791030, type: 2}
+  EventDefinition: {fileID: 11400000, guid: 14aba5d4db23638489c9bacd952b568c, type: 2}
   EventPanel: {fileID: 0}

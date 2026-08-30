@@ -11,6 +11,13 @@ namespace UI
         [SerializeField] private EventSO EventDefinition;
         
         public EventPanel EventPanel;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            
+            targetGraphic.enabled = true;
+        }
         
         public override void OnPointerClick(PointerEventData eventData)
         {

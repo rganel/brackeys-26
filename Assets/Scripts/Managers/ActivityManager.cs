@@ -57,8 +57,9 @@ namespace Managers
 
         public Dictionary<EResourceType, float> GetChangeAmounts(ActivitySO activityDefinition)
         {
-            return activityDefinition.ResourceChanges.ToDictionary(resourceChange => resourceChange.ResourceType,
-                                                                   resourceChange => GetChangeAmount(activityDefinition, resourceChange.ResourceType, out bool isRequiredCost));
+            List<EResourceType> resourceTypes = Enum.GetValues(typeof(EResourceType)).Cast<EResourceType>().ToList();
+            return resourceTypes.ToDictionary(resourceType => resourceType,
+                                              resourceType => GetChangeAmount(activityDefinition, resourceType, out bool isRequiredCost));
         }
 
         public float GetChangeAmount(ActivitySO activityDefinition, EResourceType resourceType, out bool isRequiredCost)
@@ -97,7 +98,7 @@ namespace Managers
 
             // Debug.Log($"{activityDefinition.name}: {resourceType} total cost is {change} ({(isRequiredCost ? "required" : "not required")})");
 
-            return change;
+            return Mathf.RoundToInt(change * 100) / 100.0f;
         }
 
         private float GetResourceMultiplier(ActivitySO.ResourceDependency resourceDependency)

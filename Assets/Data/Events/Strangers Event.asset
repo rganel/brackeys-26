@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3aba85a1a089894fa361f3e9adeb7a2, type: 3}
+  m_Name: Strangers Event
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.EventSO
+  Description: You encounter another caravan that wants to join up with yours.
+  DefaultSprite: {fileID: 21300000, guid: 3a289fa42880457438469cea082b42cb, type: 3}
+  HoverSprite: {fileID: 21300000, guid: ce107d2229422104aa42186df86a88f4, type: 3}
+  TrustDescription: Your numbers have grown. Travel is livelier with more companions!
+    Their mouths can sing and speak but also need to be fed.
+  RejectDescription: "You don\u2019t wait to watch them disappear over the hills
+    behind you. Some of your followers are disappointed."
+  TrustActivity: {fileID: 11400000, guid: 755a6fba0b8a4e04a9ef25d3e59f2805, type: 2}
+  RejectActivity: {fileID: 11400000, guid: 026f4a73d04bb9743b7cc355a08bcbdc, type: 2}

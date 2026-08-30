@@ -5,10 +5,10 @@ public enum EResourceType
     Day,
     Population,
     Morale,
-    Herd,
+    Herd
 }
 
-public static class EStatTypeExtensions
+public static class EResourceTypeExtensions
 {
     public static string ToString(this EResourceType resourceType)
     {

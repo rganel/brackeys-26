@@ -33,7 +33,7 @@ namespace Managers
 
             public void UpdateLabel()
             {
-                DisplayLabel.text = string.Format(DisplayFormat, Amount, Type);
+                DisplayLabel.text = string.Format(DisplayFormat, Amount, EResourceTypeExtensions.ToString(Type));
             }
         }
 
@@ -64,7 +64,7 @@ namespace Managers
             resource.Amount = Mathf.Clamp(resource.Amount + amount, resource.MinValue, resource.MaxValue);
             resource.UpdateLabel();
 
-            ResourceAmountUpdated?.Invoke(resourceType, amount);
+            ResourceAmountUpdated?.Invoke(resourceType, resource.Amount);
         }
 
         public float GetAmount(EResourceType resourceType)

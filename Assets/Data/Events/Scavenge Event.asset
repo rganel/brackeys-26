@@ -19,5 +19,5 @@ MonoBehaviour:
     some fruits, nuts, and what looks like rabbits.
   RejectDescription: "You\u2019ve never seen such plants and animals before. Who
     knows what they can do to your group."
-  TrustActivity: {fileID: 11400000, guid: 755a6fba0b8a4e04a9ef25d3e59f2805, type: 2}
+  TrustActivity: {fileID: 11400000, guid: fc84435ab793fe64698727abcd6a3c33, type: 2}
   RejectActivity: {fileID: 11400000, guid: 0358faacbd28c2846a9daed92d723e37, type: 2}

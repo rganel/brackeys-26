@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3aba85a1a089894fa361f3e9adeb7a2, type: 3}
+  m_Name: Body Event
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.EventSO
+  Description: "Someone\u2019s broken body lies half buried in the sand."
+  DefaultSprite: {fileID: 21300000, guid: 1cde9915e89fd934f9a4ccc4a3aab582, type: 3}
+  HoverSprite: {fileID: 21300000, guid: 02f17f05f03dfe94d9355f716ca9b3fc, type: 3}
+  TrustDescription: They have a chance to steal your supplies and slip away afterwards.
+  RejectDescription: You suspect a setup for an ambush and decide not to investigate
+    further.
+  TrustActivity: {fileID: 11400000, guid: 5b17372410bd3d949aefbd9fce5409bb, type: 2}
+  RejectActivity: {fileID: 11400000, guid: e230a5832bb02c843becc43734d6093f, type: 2}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3aba85a1a089894fa361f3e9adeb7a2, type: 3}
+  m_Name: Ruins Event
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.EventSO
+  Description: Old ruins appear before you, half buried by time. There are stairs
+    leading into the ground. Investigate?
+  DefaultSprite: {fileID: 21300000, guid: 37c2d0ed5981e9a4fb47a8016bd2f54d, type: 3}
+  HoverSprite: {fileID: 21300000, guid: 1a3007fd23cc8224d881ec2c582fec18, type: 3}
+  TrustDescription: You light a torch and descend the stairs. Runes like the ones
+    that came to you in your visions are carved into the walls. You and those who
+    descended with you sink into a feeling of utter tranquility. When those above
+    came down to find your group, the torch had burned out.
+  RejectDescription: "The shadows of the underground unnerve you. It\u2019s best
+    to let dead things stay buried."
+  TrustActivity: {fileID: 11400000, guid: 6d7ef6e69acd6144daddf9b42dc1118e, type: 2}
+  RejectActivity: {fileID: 11400000, guid: da06b57607b93ae478b255058a1fa539, type: 2}

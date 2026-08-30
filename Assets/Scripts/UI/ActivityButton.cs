@@ -32,9 +32,13 @@ namespace UI
 
             if (ActivityManager.Instance != null)
             {
+                interactable &= ActivityManager.Instance.CanPerform(ActivityConfig);
+                
                 if (DetailsLabel != null)
                 {
-                    DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).OrderBy(kvp => kvp.Key).Select(kvp => Format(kvp.Key, kvp.Value)));
+                    DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).Where(kvp => (kvp.Value != 0))
+                                                                                                                   .OrderBy(kvp => kvp.Key)
+                                                                                                                   .Select(kvp => Format(kvp.Key, kvp.Value)));
                 }
             }
         }
@@ -96,7 +100,9 @@ namespace UI
             DisplayLabel.text = ActivityConfig.DisplayName;
             if (DetailsLabel != null)
             {
-                DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).OrderBy(kvp => kvp.Key).Select(kvp => Format(kvp.Key, kvp.Value)));
+                DetailsLabel.text = string.Join("\n", ActivityManager.Instance.GetChangeAmounts(ActivityConfig).Where(kvp => (kvp.Value != 0))
+                                                                                                               .OrderBy(kvp => kvp.Key)
+                                                                                                               .Select(kvp => Format(kvp.Key, kvp.Value)));
             }
         }
 
@@ -107,7 +113,7 @@ namespace UI
 
         private string Format(EResourceType resourceType, float amount)
         {
-            return $"{((amount >= 0) ? "+" : string.Empty)}{amount} {resourceType}";
+            return $"{((amount >= 0) ? "+" : string.Empty)}{amount} {EResourceTypeExtensions.ToString(resourceType)}";
         }
     }
 }

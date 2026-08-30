@@ -12,6 +12,8 @@ namespace Managers
     public class AudioManager : MonoBehaviour
     {
         [SerializeField] [ParamRef] private string MoraleParameter;
+        [SerializeField] private EventReference TrustSound;
+        [SerializeField] private EventReference RejectSound;
 
         public static AudioManager Instance { get; private set; }
 
@@ -69,12 +71,24 @@ namespace Managers
 
             if (m_eventInstance.isValid())
             {
+                Debug.LogWarning("Stop old music");
                 m_eventInstance.stop(STOP_MODE.ALLOWFADEOUT);
                 m_eventInstance.release();
             }
 
+            Debug.LogWarning("Start new music");
             m_eventInstance = RuntimeManager.CreateInstance(eventReference);
             m_eventInstance.start();
+        }
+
+        public void PlayTrustSound()
+        {
+            RuntimeManager.PlayOneShot(TrustSound);
+        }
+
+        public void PlayRejectSound()
+        {
+            RuntimeManager.PlayOneShot(RejectSound);
         }
 
         public UnityAction PlayUntilStopped(EventReference eventReference)
@@ -95,6 +109,8 @@ namespace Managers
             {
                 return;
             }
+
+            Debug.Log("audio set health to " + amount);
 
             RuntimeManager.StudioSystem.setParameterByID(m_moraleParameter.id, amount);
         }

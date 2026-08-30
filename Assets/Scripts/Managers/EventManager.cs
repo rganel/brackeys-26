@@ -43,6 +43,28 @@ namespace Managers
             
             SpawnEvents();
         }
+
+        public void HideEvents()
+        {
+            foreach (EventButton eventButton in m_spawnedEvents)
+            {
+                if ((eventButton != null) && eventButton.gameObject.activeSelf)
+                {
+                    eventButton.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        public void ShowEvents()
+        {
+            foreach (EventButton eventButton in m_spawnedEvents)
+            {
+                if ((eventButton != null) && (eventButton.interactable))
+                {
+                    eventButton.gameObject.SetActive(true);
+                }
+            }
+        }
         
         private void SpawnEvents()
         {
