@@ -15,7 +15,7 @@ namespace Managers
 
         public static EventManager Instance { get; private set; }
 
-        private EventButton[] m_spawnedEvents;
+        private readonly List<EventButton> m_spawnedEvents = new();
 
         private void Awake()
         {
@@ -48,7 +48,7 @@ namespace Managers
 
         public void SpawnFirstSet()
         {
-            if (m_spawnedEvents is { Length: > 0 })
+            if (m_spawnedEvents.Count > 0)
             {
                 return;
             }
@@ -60,7 +60,7 @@ namespace Managers
         {
             foreach (EventButton eventButton in m_spawnedEvents)
             {
-                if ((eventButton != null) && eventButton.gameObject.activeSelf)
+                if (eventButton != null)
                 {
                     eventButton.gameObject.SetActive(false);
                 }
@@ -80,21 +80,17 @@ namespace Managers
 
         public void SpawnEvents()
         {
-            if (m_spawnedEvents != null)
+            List<EventButton> destroyedButtons = new();
+            foreach (EventButton eventButton in m_spawnedEvents.Where(eventButton => (eventButton != null)))
             {
-                foreach (EventButton eventButton in m_spawnedEvents)
-                {
-                    if (eventButton != null)
-                    {
-                        Destroy(eventButton.gameObject);
-                    }
-                }
+                Destroy(eventButton.gameObject);
+                destroyedButtons.Add(eventButton);
             }
 
-            m_spawnedEvents = new EventButton[EventsPerCycle];
+            m_spawnedEvents.RemoveAll(destroyedButtons.Contains);
 
             Dictionary<EntityId, List<RectTransform>> eventAnchorsByParent = EventAnchors.GroupBy(eventAnchor => eventAnchor.parent.GetEntityId()).ToDictionary(kvp => kvp.Key, kvp => kvp.ToList());
-            int eventsPerGroup = (EventsPerCycle / eventAnchorsByParent.Count);
+            int eventsPerGroup = ((EventsPerCycle - m_spawnedEvents.Count) / eventAnchorsByParent.Count);
             foreach (List<RectTransform> unusedAnchors in eventAnchorsByParent.Select(kvp => kvp.Value))
             {
                 for (int i = 0; i < eventsPerGroup; ++i)
@@ -104,8 +100,9 @@ namespace Managers
                     unusedAnchors.RemoveAt(anchorIndex);
 
                     int buttonIndex = Random.Range(0, EventPrefabs.Length);
-                    m_spawnedEvents[i] = Instantiate(EventPrefabs[buttonIndex], anchor, false);
-                    m_spawnedEvents[i].EventPanel = EventPanel;
+                    EventButton eventButton = Instantiate(EventPrefabs[buttonIndex], anchor, false);
+                    eventButton.EventPanel = EventPanel;
+                    m_spawnedEvents.Add(eventButton);
                 }
             }
         }

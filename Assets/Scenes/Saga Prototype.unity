@@ -4813,20 +4813,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.3462406
-      outSlope: 0.3462406
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3692955
+      value: 0.090737104
+      inSlope: 0.6511435
+      outSlope: 0.6511435
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.06188925
+      inWeight: 0.33333334
+      outWeight: 0.07898178
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.5139508
-      outSlope: 0.5139508
+      inSlope: 0.2320571
+      outSlope: 0.2320571
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.06948966
+      inWeight: 0.06297505
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -10683,7 +10692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ced2971df3bf66489dd18bcac82444c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  EventsPerCycle: 12
+  EventsPerCycle: 8
   EventPanel: {fileID: 377086086}
   EventPrefabs:
   - {fileID: 3656445109967860969, guid: 25a33e5d9a13ece43bafdb2809179a74, type: 3}
