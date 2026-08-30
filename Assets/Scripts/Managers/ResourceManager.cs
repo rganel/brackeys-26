@@ -66,5 +66,10 @@ namespace Managers
 
             ResourceAmountUpdated?.Invoke(resourceType, amount);
         }
+
+        public float GetAmount(EResourceType resourceType)
+        {
+            return Resources[(int)resourceType].Amount;
+        }
     }
 }

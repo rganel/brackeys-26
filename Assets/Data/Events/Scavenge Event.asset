@@ -15,4 +15,31 @@ MonoBehaviour:
   DisplayName: Scavenge
   ResourceChanges:
   - ResourceType: 3
-    AmountChange: 3
+    BaseAmountChange: 1
+    ResourceDependencies:
+    - ResourceType: 1
+      MultiplierCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0.002
+          outSlope: 0.002
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1000
+          value: 3
+          inSlope: 0.002
+          outSlope: 0.002
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    IsRequiredCost: 0

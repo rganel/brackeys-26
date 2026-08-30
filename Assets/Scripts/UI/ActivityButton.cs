@@ -15,9 +15,9 @@ namespace UI
         [SerializeField] protected RectTransform DetailsParent;
         [SerializeField] protected TMP_Text DetailsLabel;
 
-        protected override void Awake()
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
 
             Debug.Assert(ActivityConfig != null);
             Debug.Assert(DisplayLabel != null);
@@ -27,10 +27,14 @@ namespace UI
             {
                 DetailsLabel.text = string.Join("\n", ActivityConfig.ResourceChanges.OrderBy(activity => activity.ResourceType));
             }
+
+            ResourceManager.Instance?.ResourceAmountUpdated.AddListener(HandleResourceChange);
         }
 
         protected override void OnDisable()
         {
+            ResourceManager.Instance?.ResourceAmountUpdated.RemoveListener(HandleResourceChange);
+
             // Trigger this manually to reset the button because OnPointerExit won't fire if the button press caused it to become disabled
             OnPointerExit(null);
 
@@ -49,7 +53,10 @@ namespace UI
 
         public override void OnPointerExit(PointerEventData eventData)
         {
-            interactable = true;
+            if (ActivityManager.Instance != null)
+            {
+                interactable &= ActivityManager.Instance.CanPerform(ActivityConfig);
+            }
 
             base.OnPointerExit(eventData);
 
@@ -72,10 +79,12 @@ namespace UI
                 DetailsParent.gameObject.SetActive(false);
             }
 
-            foreach (ActivitySO.ResourceChange resourceChange in ActivityConfig.ResourceChanges)
-            {
-                ResourceManager.Instance.AddResource(resourceChange.ResourceType, resourceChange.AmountChange);
-            }
+            ActivityManager.Instance.ApplyResourceChanges(ActivityConfig);
+        }
+
+        private void HandleResourceChange(EResourceType resourceType, float amount)
+        {
+            interactable &= ActivityManager.Instance.CanPerform(ActivityConfig);
         }
     }
 }

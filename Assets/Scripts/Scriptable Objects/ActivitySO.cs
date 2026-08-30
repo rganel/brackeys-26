@@ -15,12 +15,13 @@ namespace Scriptable_Objects
         public class ResourceChange
         {
             public EResourceType ResourceType;
-            public float AmountChange;
-            public ResourceDependency ResourceDependency;
+            public float BaseAmountChange;
+            public ResourceDependency[] ResourceDependencies;
+            public bool IsRequiredCost;
 
             public override string ToString()
             {
-                return $"{((AmountChange >= 0) ? "+" : string.Empty)}{AmountChange} {ResourceType}";
+                return $"{((BaseAmountChange >= 0) ? "+" : string.Empty)}{BaseAmountChange} {ResourceType}";
             }
         }
 
@@ -28,8 +29,7 @@ namespace Scriptable_Objects
         public class ResourceDependency
         {
             public EResourceType ResourceType;
-            public float MinResourceNeeded = float.MinValue;
-            public float MaxResourceNeeded = float.MaxValue;
+            public AnimationCurve MultiplierCurve;
         }
     }
 }

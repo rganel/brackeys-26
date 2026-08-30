@@ -15,9 +15,9 @@ public static class EStatTypeExtensions
         switch (resourceType)
         {
             case EResourceType.Day: return "Day";
-            case EResourceType.Population: return "Caravan";
-            case EResourceType.Herd: return "Herd";
-            case EResourceType.Morale: return "Morale";
+            case EResourceType.Population: return "Followers";
+            case EResourceType.Herd: return "Supplies";
+            case EResourceType.Morale: return "Devotion";
 
             default:
                 Debug.Assert(false);

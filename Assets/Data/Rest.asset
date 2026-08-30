@@ -15,10 +15,68 @@ MonoBehaviour:
   DisplayName: Rest Overnight
   ResourceChanges:
   - ResourceType: 0
-    AmountChange: 1
+    BaseAmountChange: 1
+    ResourceDependencies: []
+    IsRequiredCost: 0
   - ResourceType: 1
-    AmountChange: 1
+    BaseAmountChange: 1
+    ResourceDependencies:
+    - ResourceType: 2
+      MultiplierCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0.01
+          outSlope: 0.01
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 100
+          value: 1
+          inSlope: 0.01
+          outSlope: 0.01
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    IsRequiredCost: 0
   - ResourceType: 2
-    AmountChange: 1
+    BaseAmountChange: 1
+    ResourceDependencies: []
+    IsRequiredCost: 0
   - ResourceType: 3
-    AmountChange: 1
+    BaseAmountChange: -1
+    ResourceDependencies:
+    - ResourceType: 1
+      MultiplierCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0.0049
+          outSlope: 0.0049
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 10000
+          value: 50
+          inSlope: 0.0049
+          outSlope: 0.0049
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    IsRequiredCost: 0

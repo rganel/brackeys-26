@@ -15,8 +15,14 @@ MonoBehaviour:
   DisplayName: Perform Sacrifice
   ResourceChanges:
   - ResourceType: 3
-    AmountChange: -1
+    BaseAmountChange: -1
+    ResourceDependencies: []
+    IsRequiredCost: 1
   - ResourceType: 2
-    AmountChange: 5
+    BaseAmountChange: 5
+    ResourceDependencies: []
+    IsRequiredCost: 0
   - ResourceType: 0
-    AmountChange: 1
+    BaseAmountChange: 1
+    ResourceDependencies: []
+    IsRequiredCost: 0

@@ -29,7 +29,7 @@ namespace Managers
 
         private float m_timeOfDay;
         private float m_timeOfDaySign;
-        private int m_thisLevelTravelDaysRemaining;
+        private float m_thisLevelTravelDaysRemaining;
         private int m_interpolateParamId;
         private int m_shadowFactorParamId;
         private Coroutine m_tickCoroutine;
@@ -149,16 +149,8 @@ namespace Managers
                 m_timeOfDaySign = -1.0f;
                 yield return new WaitForSeconds(TravelTickInterval / 2);
 
-                // TODO: confirm activity can be done
-                foreach (ActivitySO.ResourceChange resourceChange in TravelActivity.ResourceChanges)
-                {
-                    ResourceManager.Instance.AddResource(resourceChange.ResourceType, resourceChange.AmountChange);
-
-                    if (resourceChange.ResourceType == EResourceType.Day)
-                    {
-                        m_thisLevelTravelDaysRemaining -= Mathf.FloorToInt(resourceChange.AmountChange);
-                    }
-                }
+                ActivityManager.Instance.ApplyResourceChanges(TravelActivity);
+                m_thisLevelTravelDaysRemaining -= ActivityManager.Instance.GetChangeAmount(TravelActivity, EResourceType.Day, out bool isRequiredCost);
             }
         }
     }

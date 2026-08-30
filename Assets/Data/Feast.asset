@@ -15,8 +15,39 @@ MonoBehaviour:
   DisplayName: Hold Feast
   ResourceChanges:
   - ResourceType: 0
-    AmountChange: 1
+    BaseAmountChange: 1
+    ResourceDependencies: []
+    IsRequiredCost: 0
   - ResourceType: 3
-    AmountChange: -5
+    BaseAmountChange: -2
+    ResourceDependencies:
+    - ResourceType: 1
+      MultiplierCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0.0099
+          outSlope: 0.0099
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 10000
+          value: 100
+          inSlope: 0.0099
+          outSlope: 0.0099
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    IsRequiredCost: 1
   - ResourceType: 2
-    AmountChange: 15
+    BaseAmountChange: 5
+    ResourceDependencies: []
+    IsRequiredCost: 0
